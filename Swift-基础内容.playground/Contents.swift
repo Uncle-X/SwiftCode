@@ -196,7 +196,7 @@ let num5 : myInt = myInt.min;
 
 
 /*
- *Bool类型
+ *十三.Bool类型
  */
 //Swift为布尔量提供了两个常量值， true 和 false
 let orangesAreOrange = true
@@ -208,17 +208,44 @@ if turnipsAreDelicious {
 } else {
     print("Eww, turnips are horrible.")
 }
-//Swift 的类型安全机制会阻止你用一个非布尔量的值替换掉 Bool 。下面的栗子中报告了一个发生在编译时的错误
+//Swift 的类型安全机制会阻止你用一个非布尔量的值替换掉 Bool 。oc 中的1为真0为假在这里不适用
 //let i = 1
 //if i {
 //    // this example will not compile, and will report an error
 //}
 
-//正确写法
+//正确写法，这里 i == 1 的比较结果是一个 Bool 类型，所以第二个栗子可以通过类型检查
 let i = 1
 if i == 1 {
     // this example will compile successfully
 }
-//这里 i == 1 的比较结果是一个 Bool 类型，所以第二个栗子可以通过类型检查
+
+/*
+ *十四. 元组
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
