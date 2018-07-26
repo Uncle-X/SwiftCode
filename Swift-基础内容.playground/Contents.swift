@@ -311,17 +311,19 @@ if let aa = Int("12") {
 /*
  *十八. 可选项的隐式展开
  */
+
 //所谓的可选项的隐式展开,不必像普通的可选项那样,获取值得时候还要在后面添加一个 ! 来强制解析,而是在声明的时候,就添加 ! ,用的时候直接用就行了.
 //隐式展开,肯定是在,声明一个变量的时候,就已经确定这个变量肯定有值,才会用
 //如果一个定义了隐式展开的变量,有肯能为nil,那么这个变量就不适合用隐式展开,建议定义成普通的可选项
 //总之:不要在一个变量可能为nil的情况下使用隐式展开
 
 //普通的可选项
-let possibleStr: String? = "heheda";
+let possibleStr: String? = "heheda"
 let forcedStr: String = possibleStr! //上面是普通可选项,在这里强制解析
 
+
 let possibleStr2: String! = "heheda"
-let forcedStr2: String = possibleStr2  //这里不用强制解析,上面已经定义了隐式展开
+let forcedStr2: String = possibleStr2 //这里不用强制解析,上面已经定义了隐式展开
 
 //隐式展开可选项当做在每次访问它的时候被给予了自动进行展开的权限
 
@@ -376,17 +378,17 @@ func makeASandwich() throws {
  */
 
 let lilisAge = -3
-assert(lilisAge > 0,"A person's age cannot be less than zero")
+//assert(lilisAge > 0,"A person's age cannot be less than zero")
 
 //当然,后面的错误信息也可以不写
-assert(lilisAge > 0)
+//assert(lilisAge > 0)
 
 if lilisAge > 10 {
     print("You can ride the roller-coaster or the ferris wheel.")
 } else if lilisAge > 0 {
     print("You can ride the ferris wheel.")
 } else {
-    assertionFailure("A person's age can't be less than zero.")
+//    assertionFailure("A person's age can't be less than zero.")
 }
 //断言和先决条件的不同之处在于他们什么时候做检查：断言只在 debug 构建的时候检查，但先决条件则在 debug 和生产构建中生效。在生产构建中，断言中的条件不会被计算
 
@@ -400,7 +402,7 @@ if lilisAge > 10 {
 //使用先决条件来检测下标没有越界，或者检测函数是否收到了一个合法的值。
 
 let index = 3
-precondition(index > 5,"Index must be greater than five")
+//precondition(index > 5,"Index must be greater than five")
 
 
 //Swift 提供了一系列好用的断言函数。assert 和 assertionFailure 函数仅在优化未开启时有效。这对于检查那些耗性能的条件是很有用的，但通常情况下应尽量避免使用。precondition 和 preconditionFailure 函数在优化开启时也有效
