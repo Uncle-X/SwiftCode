@@ -44,7 +44,7 @@ let 🙄 = "呵呵"
 let 你妹 = "你妹"
 //let Int = 44
 //尽量不要使用关键字作为常量或者变量名(一定要用可以用反引号包裹`xxx`--(键盘左上角~的键))
-let `Int` = "Unicode"
+//let `Int` = "Unicode"
 
 //常量不可改变
 let laguageName = "lili"
@@ -223,29 +223,187 @@ if i == 1 {
 /*
  *十四. 元组
  */
+//元组把多个值合并成单一的复合型的值。元组内的值可以是任何类型，而且可以不必是同一类型
+let http404Error = (404,"not found")//--->类型就是(Int,string)
+
+//任何类型的排列都可以被用来创建一个元组，他可以包含任意多的类型
+let some = (4,"hehe",true)//--->类型是(Int,string,Bool)
+
+//两个数据都要的情况
+let (statusCode,statusMessage) = http404Error;
+print("错误码是\(statusCode),错误信息是\(statusMessage)")
+
+//只要code的情况,其中一个用不到,就用_代替.
+let (code,_) = http404Error
+print("错误码是\(code)")
+
+//-->可以想到,元组作为函数返回值时，非常有用
+
+
+/*
+ *十五. 可选项
+ */
+
+//可选项用来处理可能会出现缺失值得情况,可以选项的意思是,可能有值,可能没值.
+//oc 中,对象类型,没有值得情况下回返回一个nil,基本数据类型,比如结构体,枚举等,会返回一个NotFound
+//swift 中,任何类型没有值得情况,都可以返回nil,不仅限于对象类型
+//在oc中,nil是指向一个不存在的对象的指针,在swift中,nil不是指针,他是一种类型,一种代表值缺失的类型(只要为空,就是nil),不仅仅是对象类型,所有类型值为空,都可以是nil
+
+//字符串转数字,可能为空,不是所有的字符串都能转成数字的,所以下面这样写是会报错的.
+
+let possibleNumber:String = "123"
+let coveredNumber:Int? = Int(possibleNumber)
+
+
+//不能给一个非可变类型的变量赋值为nil,如果一个变量可能有值,可能没值,就声明为可选项
+var serverCode :Int? = 404
+serverCode = nil
+
+
+/*
+ *十六. if 语句,以及强制展开
+ */
+
+//接着上面的变量coveredNumber 来
+if coveredNumber != nil {
+    print("字符串转数字成功")
+}
+
+//如果,明确知道会转成功,而且有值,就可以强制解析
+if coveredNumber != nil {
+    print("转换成功后的数字是\(coveredNumber!)")
+}
+//更多关于if的用法,后面控制流学习的时候再详细讨论
 
 
 
 
+/*
+ *十七. 可选项绑定
+ */
+//可以使用可选项绑定来判断可选项是否包含值，如果包含就把值赋给一个临时的常量或者变量
+
+if let numberA = Int(possibleNumber) {
+    print("转成的数字是\(numberA)")
+}else{
+    print("没转成功")
+}
+
+//如果 Int(possibleNumber) 转换成功,会直接被赋值给numberA进行初始化,第一个判断分支中就可以使用.而且不用 ! 来强制展开(解析)
+
+//同一个 if 语句中包含多可选项绑定，用逗号分隔即可。如果任一可选绑定结果是 nil 或者布尔值为 false ，那么整个 if 判断会被看作 false
+if let aa = Int("12"), let bb = Int("14"), let cc = Int("16"), aa < bb && bb < cc {
+    print("条件成立")
+}
+
+//等价于
+if let aa = Int("12") {
+    if let bb = Int("14") {
+        if let cc = Int("16"){
+            if aa < bb && bb < cc {
+                print("条件成立")
+            }
+        }
+    }
+}
+
+
+/*
+ *十八. 可选项的隐式展开
+ */
+//所谓的可选项的隐式展开,不必像普通的可选项那样,获取值得时候还要在后面添加一个 ! 来强制解析,而是在声明的时候,就添加 ! ,用的时候直接用就行了.
+//隐式展开,肯定是在,声明一个变量的时候,就已经确定这个变量肯定有值,才会用
+//如果一个定义了隐式展开的变量,有肯能为nil,那么这个变量就不适合用隐式展开,建议定义成普通的可选项
+//总之:不要在一个变量可能为nil的情况下使用隐式展开
+
+//普通的可选项
+let possibleStr: String? = "heheda";
+let forcedStr: String = possibleStr! //上面是普通可选项,在这里强制解析
+
+let possibleStr2: String! = "heheda"
+let forcedStr2: String = possibleStr2  //这里不用强制解析,上面已经定义了隐式展开
+
+//隐式展开可选项当做在每次访问它的时候被给予了自动进行展开的权限
 
 
 
 
+/*
+ *十九. 错误处理
+ */
+
+//一般用于函数
+//一个函数如果想抛出错误,就使用throws 关键字,加在函数的后面
+
+func doSomeThing() throws {
+    
+}
+
+//Swift 会自动将错误传递到它们的生效范围之外，直到它们被 catch 分句处理
+do{
+    try doSomeThing()
+    //没有错误之执行这里
+
+}catch{
+    //有错误之执行这里
+}
+
+
+//实例二 do 语句创建了一个新的容器范围，可以让错误被传递到到不止一个的 catch 分句里。
+
+func makeASandwich() throws {
+    // ...
+}
+
+
+//do {
+//    try makeASandwich()
+//    eatASandwich()
+//} catch Error.OutOfCleanDishes {
+//    washDishes()
+//} catch Error.MissingIngredients(let ingredients) {
+//    buyGroceries(ingredients)
+//}
+
+
+/*
+ *二十. 断言和先决条件
+ */
+//(一.) 断言
+/*
+ *使用全局函数 assert(_:_:)  函数来写断言,另外，断言还允许你附加一条调试的信息
+ *断言为真,函数继续执行,断言为假的,程序停止,
+ */
+
+let lilisAge = -3
+assert(lilisAge > 0,"A person's age cannot be less than zero")
+
+//当然,后面的错误信息也可以不写
+assert(lilisAge > 0)
+
+if lilisAge > 10 {
+    print("You can ride the roller-coaster or the ferris wheel.")
+} else if lilisAge > 0 {
+    print("You can ride the ferris wheel.")
+} else {
+    assertionFailure("A person's age can't be less than zero.")
+}
+//断言和先决条件的不同之处在于他们什么时候做检查：断言只在 debug 构建的时候检查，但先决条件则在 debug 和生产构建中生效。在生产构建中，断言中的条件不会被计算
 
 
 
+/*
+ *二十一. 强制先决条件 precondition
+ */
+
+//如果条件不成立,false信息就会显示出来
+//使用先决条件来检测下标没有越界，或者检测函数是否收到了一个合法的值。
+
+let index = 3
+precondition(index > 5,"Index must be greater than five")
 
 
-
-
-
-
-
-
-
-
-
-
+//Swift 提供了一系列好用的断言函数。assert 和 assertionFailure 函数仅在优化未开启时有效。这对于检查那些耗性能的条件是很有用的，但通常情况下应尽量避免使用。precondition 和 preconditionFailure 函数在优化开启时也有效
 
 
 
