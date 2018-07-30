@@ -377,6 +377,7 @@ func makeASandwich() throws {
  *断言为真,函数继续执行,断言为假的,程序停止,
  */
 
+
 let lilisAge = -3
 //assert(lilisAge > 0,"A person's age cannot be less than zero")
 
