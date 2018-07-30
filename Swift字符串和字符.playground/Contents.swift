@@ -74,8 +74,16 @@ variableString += " and carriage"
 //constantString += " and another Highlander"
 
 //let 创建的字符串不可修改,var创建的字符串可以修改
+//String值在传递给方法或者函数的时候会被复制过去，还有赋值给常量或者变量的时候也是一样。每一次赋值和传递，现存的 String值都会被复制一次，传递走的是拷贝而不是原本
+//Swift 编译器优化了字符串使用的资源，实际上拷贝只会在确实需要的时候才进行
 
 
+
+//字符串的遍历
+//你可以通过 for-in循环遍历 String 中的每一个独立的 Character值
+for c in "hello"{
+    print("\(c)")
+}
 
 
 
